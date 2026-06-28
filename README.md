@@ -45,3 +45,27 @@ First, clone the repository and install the dependencies:
 npm install
 # or
 yarn install
+```
+
+Set up your environment variables by creating a `.env` file in the root directory:
+
+```env
+DATABASE_URL="file:./dev.db"
+GEMINI_API_KEY="your_google_gemini_api_key_here"
+```
+
+Initialize the database:
+
+```bash
+npx prisma db push
+```
+
+Run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application in action.
