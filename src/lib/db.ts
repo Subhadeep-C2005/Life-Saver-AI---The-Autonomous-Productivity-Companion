@@ -1,11 +1,13 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
+
+const connectionString = process.env.DATABASE_URL || '';
 
 function createPrismaClient() {
-  // PrismaLibSql takes a Config object (url string), not a pre-constructed Client
-  const adapter = new PrismaLibSql({ url: 'file:prisma/dev.db' });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return new PrismaClient({ adapter } as any);
+  const pool = new Pool({ connectionString });
+  const adapter = new PrismaPg(pool);
+  return new PrismaClient({ adapter });
 }
 
 // Prevent multiple Prisma client instances during hot-reload in dev

@@ -1,8 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 
-const adapter = new PrismaLibSql({ url: 'file:prisma/dev.db' });
-const prisma = new PrismaClient({ adapter } as any);
+const connectionString = process.env.DATABASE_URL || '';
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const subtasks = await prisma.subtask.findMany({ take: 2 });

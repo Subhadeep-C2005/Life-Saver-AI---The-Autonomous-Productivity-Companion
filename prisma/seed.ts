@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 
-// PrismaLibSql takes a Config object with url, not a pre-constructed Client
-const adapter = new PrismaLibSql({ url: 'file:prisma/dev.db' });
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const prisma = new PrismaClient({ adapter } as any);
+const connectionString = process.env.DATABASE_URL || '';
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 // Helper: combine a display date string + optional time string into a Date
 function toDate(dateStr: string, timeStr?: string): Date {
