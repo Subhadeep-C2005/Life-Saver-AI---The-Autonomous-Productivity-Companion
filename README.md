@@ -4,6 +4,12 @@
 
 ---
 
+## 🌍 Live Links
+* **Google Cloud Portal (Hackathon Submission):** [https://life-saver-ai-13554520566.asia-southeast1.run.app](https://life-saver-ai-13554520566.asia-southeast1.run.app)
+* **Direct Vercel Deployment:** [https://life-saver-ai-the-autonomous-produc.vercel.app](https://life-saver-ai-the-autonomous-produc.vercel.app)
+
+---
+
 ## 🚀 The Problem
 Modern students and professionals face a continuous battle against cognitive overload and deadline paralysis. Static calendars and manual checklists fail to adapt to dynamic schedules, leading to decision fatigue, missed deadlines, and severe burnout. Users do not need another list to manage; they require an intelligent system that thinks ahead and dynamically organizes their workload.
 
@@ -29,11 +35,12 @@ It pairs this autonomous planning with a **Deep Work Focus Mode**—a visually i
 **Core Infrastructure:**
 * **Frontend:** Next.js (React), Tailwind CSS
 * **Backend:** Next.js Server Actions, Node.js
-* **Database:** Prisma ORM, SQLite/PostgreSQL
+* **Database:** Prisma ORM, PostgreSQL (Hosted via Neon)
+* **Deployment Engine:** Vercel Serverless Edge
 
 **Google Technologies Utilized:**
 * **Google Gemini API:** Powers the core intelligence of the application, responsible for natural language processing, dynamic task breakdown, and the interactive Productivity Assistant.
-* **Google Cloud Platform (GCP):** Utilized for the deployment, hosting, and global delivery of the live web application.
+* **Google Cloud Run:** Used to deploy and host the live application infrastructure, delivering global access via a secure serverless environment.
 
 ---
 
@@ -50,13 +57,14 @@ yarn install
 Set up your environment variables by creating a `.env` file in the root directory:
 
 ```env
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://your_user:your_password@your_neon_host/neondb?sslmode=require"
 GEMINI_API_KEY="your_google_gemini_api_key_here"
 ```
 
 Initialize the database:
 
 ```bash
+npx prisma generate
 npx prisma db push
 ```
 
